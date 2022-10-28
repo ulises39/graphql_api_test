@@ -1,7 +1,10 @@
 import '@babel/polyfill'
+import cors from 'cors';// ... const server = express();
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const app = express();
+app.use('*', cors({ origin: 'http://localhost:3000' }));
+
 const sequelize = require('./database');
 
 const server = new ApolloServer({

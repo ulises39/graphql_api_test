@@ -3,21 +3,28 @@ const Sequelize = require('sequelize')
 
 var db = {}
 
-const database = process.env.DB_DATABASE;
-const username = process.env.DB_USERNAME;
-const password = process.env.DB_PASSWORD;
-const db_host  = process.env.DB_HOST;
-const db_port     = process.env.DB_PORT;
-
-const sequelize = new Sequelize( database, username, password, {
-    host: db_host,
-    port: db_port,
-    dialect: 'mysql',
-    define: {
-        freezeTableName: false,
-    },
-    logging: true
-})
+const sequelize = process.env.NODE_ENV === 'local' ? 
+    new Sequelize( process.env.DB_DATABASE, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        dialect: 'mysql',
+        define: {
+            freezeTableName: false,
+        },
+        logging: true
+    })
+    :
+    new Sequelize( process.env.DB_TEST_DATABASE, process.env.DB_TEST_USERNAME, process.env.DB_TEST_PASSWORD, {
+        host: process.env.DB_TEST_HOST,
+        dialect: 'mysql',
+        // dialectOptions: {
+        //     ssl: 'Amazon RDS'
+        // },
+        define: {
+            freezeTableName: false,
+        },
+        logging: console.log
+    })
 
 const models = [
     require('./models/users.js')
