@@ -30,9 +30,10 @@ hay que configurar las siguientes variables de entorno:
 Una variable que hay que configurar es el puerto en el que se estará corriendo el proyecto, eso es en:
 
 ```
-    DB_PORT = local
-    
+    DB_PORT = 3001
+
 ```
+Se sugiere ejecutarse en el puerto 3001 por que el proyecto del frontend está configurado para realizar la conexión con la api allí
 
 Finalmente, para ejecutar el proyecto corremos:
 
